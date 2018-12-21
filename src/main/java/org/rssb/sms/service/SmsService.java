@@ -29,7 +29,7 @@ public class SmsService {
      */
     public String sendSms(SmsRequest smsRequest) {
 
-        System.out.println("Enter:sendSms");
+        logger.info("Enter:sendSms");
         String response;
         try {
             RestTemplate restTemplate = new RestTemplate();
@@ -42,16 +42,15 @@ public class SmsService {
                     .queryParam("msg", smsRequest.getMessage())
                     .queryParam("type", 1);
 
-            System.out.println("Calling Striker:"+builder.toUriString());
+            logger.info("Calling Striker:"+builder.toUriString());
             response = restTemplate.getForObject(builder.toUriString(), String.class);
-            System.out.println("Response from Striker::"+response);
+            logger.info("Response from Striker::"+response);
         }
         catch (Exception e)
         {
             System.out.println("Exception in sendSms");
             throw new RuntimeException();
         }
-        System.out.println("Exit:sendSms with response-"+response);
         return response;
     }
 
